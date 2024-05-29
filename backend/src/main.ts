@@ -5,7 +5,6 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log('Nest is running...');
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (errors) => {
@@ -18,6 +17,8 @@ async function bootstrap() {
       stopAtFirstError: true,
     }),
   );
+
+  app.enableCors({ origin: '*' });
 
   let portStr = process.env.PORT;
   let port = Number(portStr);
