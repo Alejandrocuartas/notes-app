@@ -18,6 +18,12 @@ async function bootstrap() {
       stopAtFirstError: true,
     }),
   );
-  await app.listen(3000);
+
+  let portStr = process.env.PORT;
+  let port = Number(portStr);
+  if (!portStr || isNaN(port)) {
+    port = 3000;
+  }
+  await app.listen(Number(port));
 }
 bootstrap();
