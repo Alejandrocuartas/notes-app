@@ -35,6 +35,10 @@
 
 For detailed API documentation, visit the following [Postman Collection](https://www.postman.com/orbital-module-geoscientist-50527574/workspace/notes-app/collection/15967321-10354404-754d-43c8-ae07-ed4d84bda86e?action=share&creator=15967321)
 
+## Deploy
+
+The App is running on a Amazon EC2 instance and the base url is: http://34.229.16.6:8001
+
 ## Running the Project
 
    ```bash
