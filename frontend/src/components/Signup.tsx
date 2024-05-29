@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../context";
 import { signupRequest } from "../requests/signup";
-import { authValidator } from "../hooks/auth_validator";
 
 const Login = () => {
     const [loading, setLoading] = React.useState(false)
     const globalState = useGlobalState()
-
     const navigate = useNavigate()
+
     const login = async (e: any) => {
         e.preventDefault()
 
@@ -16,6 +15,7 @@ const Login = () => {
         const username: string = e.target.username.value;
         const password: string = e.target.password.value;
         const password2: string = e.target.password2.value;
+
         if (password !== password2) {
             alert("Passwords do not match")
             return
@@ -33,11 +33,6 @@ const Login = () => {
             return alert(error.message)
         }
     }
-
-    useEffect(() => {
-        const isLogged = authValidator();
-        isLogged ? navigate("/") : globalState ? globalState.setUser(null) : null
-    }, [])
 
     return (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -119,7 +114,7 @@ const Login = () => {
                     </div>
                 </form>
                 <button
-                    onClick={() => navigate("/login")}
+                    onClick={(e) => navigate("/login")}
                     className="group relative flex w-full justify-center rounded-md border border-transparent bg-blue-800 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     Sign In

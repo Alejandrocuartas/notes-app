@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import AuthPage from "./pages/AuthPage";
 import Home from "./pages/Home"
 import RegisterPage from "./pages/RegisterPage";
+import './App.css';
 
 const App = () => {
     return (

@@ -7,7 +7,6 @@ export const loginRequest = async (username: string, password: string) => {
             username,
             password,
         });
-        console.log(response.data)
         return response.data;
     } catch (error: any) {
         errorManagement(error)

@@ -1,14 +1,14 @@
-export const authValidator = (): boolean => {
+export const useAuthValidator = (): UserContext | null => {
     const user = localStorage.getItem("notes_app_user");
 
     if (!user) {
-        return false;
+        return null;
     }
 
     const userData: UserContext = JSON.parse(user);
-    if (user) {
-        return true;
+    if (userData) {
+        return userData;
     }
 
-    return false;
+    return null;
 }

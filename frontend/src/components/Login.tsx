@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../context";
 import { loginRequest } from "../requests/login";
-import { authValidator } from "../hooks/auth_validator";
 
 const Login = () => {
     const [loading, setLoading] = React.useState(false)
@@ -27,11 +26,6 @@ const Login = () => {
             return alert(error.message)
         }
     }
-
-    useEffect(() => {
-        const isLogged = authValidator();
-        isLogged ? navigate("/") : globalState ? globalState.setUser(null) : null
-    }, [])
 
     return (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
