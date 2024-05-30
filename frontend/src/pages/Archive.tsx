@@ -6,7 +6,7 @@ import { useGlobalState } from "../context";
 import Note from "../components/Note";
 import Loading from "../components/Loading";
 
-const Home = () => {
+const Archive = () => {
     const [notesResponse, setNotes] = useState<NotesResponse>(null);
     const globalState = useGlobalState()
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Home = () => {
         try {
             setLoading(setLoadingTrue);
             if (globalState?.id) {
-                const res = await getNotesRequest(globalState.id, 1, 100, false, globalState.tag_id);
+                const res = await getNotesRequest(globalState.id, 1, 100, true, globalState.tag_id);
                 res ? setNotes(res) : null;
             }
             setLoading(false);
@@ -65,4 +65,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Archive;

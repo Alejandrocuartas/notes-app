@@ -8,10 +8,11 @@ type UserContext = {
     id: number | undefined,
     setUser: Dispatch<SetStateAction<UserContext>>,
     tag_id: number | undefined,
+    refetch: boolean | undefined,
 };
 
 type Tag = {
-    id: number,
+    id?: number,
     tag: string,
     emoji: string,
 }

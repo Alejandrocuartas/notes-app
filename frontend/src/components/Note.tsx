@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Tag from './Tag';
 import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
-import NoteForm from './NoteForm';
+import NoteForm from './UpdateNoteForm';
 
-const Note = ({ note, refreshCallback }: { note: Note, refreshCallback?: () => void }) => {
+const Note = ({ note, refreshCallback }: { note: Note, refreshCallback: (setLoading: boolean) => void }) => {
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
 

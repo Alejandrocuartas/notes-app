@@ -9,6 +9,7 @@ const Context = ({ children }: { children: JSX.Element }) => {
             tag_id: user?.tag_id,
             id: user?.id,
             name: user?.name,
+            refetch: user?.refetch,
             setUser,
         }}>
             {children}

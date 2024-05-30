@@ -1,18 +1,71 @@
 import React, { useState } from 'react'
-import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react'
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-
+import { createTagRequest } from '../requests/create_tag'
+import EmojiPicker from 'emoji-picker-react';
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-const Select = ({ tags, defaultCTA, callback }: { tags: Tag[], defaultCTA: string, callback: (tag: Tag) => void }) => {
-    const [selected, setSelected] = useState({ tag: defaultCTA, emoji: '🏷️' })
+const Select = ({ tags, defaultCTA, callback, isForANote, noteId }: { tags: Tag[], defaultCTA: string, callback: (tag: Tag) => void, isForANote?: boolean, noteId?: number }) => {
+    const [selected, setSelected] = useState<Tag>({ tag: defaultCTA, emoji: '🏷️' })
+    const [isCreatingTag, setIsCreatingTag] = useState(false);
+    const [isSelectingEmoji, setIsSelectingEmoji] = useState(false);
+    const [newTag, setNewTag] = useState<Tag>({ tag: "Productivity", emoji: "💥" });
+
 
     const handleChange = (tag: Tag) => {
         setSelected(tag);
         callback(tag);
+    }
+
+    const handleCreateTag = async () => {
+        if (!noteId) return;
+        try {
+            setIsCreatingTag(false);
+            const tag = await createTagRequest(newTag.tag, newTag.emoji, noteId);
+            tag ? setSelected({ tag: tag.tag, emoji: tag.emoji, id: tag.id }) : null;
+            tag ? callback(tag) : null;
+
+        } catch (error: any) {
+            console.log(error);
+            setIsCreatingTag(false);
+            alert("There was an error while saving the tag. Please try again.");
+        }
+    }
+
+    const handleCreateTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewTag({ tag: e.target.value, emoji: newTag.emoji });
+    }
+
+    const handleEmojiChange = (e: any) => {
+        setNewTag({ tag: newTag.tag, emoji: e.emoji });
+        setIsSelectingEmoji(false);
+    }
+
+    if (isSelectingEmoji) {
+        return (
+            <div className='z-10 fixed top-0 left-0 right-0 bottom-0 bg-gray-500 bg-opacity-50 flex justify-center items-center'>
+                <EmojiPicker open={isSelectingEmoji} height={400} width={300} onEmojiClick={handleEmojiChange} />
+            </div>
+        )
+    }
+
+    if (isCreatingTag) {
+        return (
+            <>
+                <div className="flex justify-center items-center bg-orange-400 rounded-lg border-0">
+                    <div onClick={() => setIsSelectingEmoji(true)} className="cursor-pointer ml-1">
+                        {newTag.emoji}
+                    </div>
+                    <input defaultValue={newTag.tag} maxLength={25} type="text" placeholder="tag name" className="focus:outline-none w-full p-2 text-sm text-gray-900 bg-orange-400 rounded-lg border-0 focus:ring-0 focus:border-0 border-b-2 border-orange-500" onChange={handleCreateTagChange} />
+                    <button onClick={handleCreateTag} className="bg-gray-200 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-fullbg-transparent text-gray-700 hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" >
+                        Create
+                    </button>
+                </div>
+            </>
+        )
     }
 
     return (
@@ -70,6 +123,23 @@ const Select = ({ tags, defaultCTA, callback }: { tags: Tag[], defaultCTA: strin
                                         )}
                                     </ListboxOption>
                                 ))}
+                                {isForANote ? (
+                                    <ListboxOption
+                                        key={0}
+                                        className={({ focus }) =>
+                                            classNames(
+                                                focus ? 'bg-indigo-600 text-white' : '',
+                                                !focus ? 'text-gray-900' : '',
+                                                'relative cursor-default select-none py-2 pl-3 pr-9 p-0'
+                                            )
+                                        }
+                                        value={{ tag: "", emoji: "🏷️" }}
+                                    >
+                                        <button className='w-full p-0' onClick={() => setIsCreatingTag(true)}>
+                                            Create a tag
+                                        </button>
+                                    </ListboxOption>
+                                ) : null}
                             </ListboxOptions>
                         </Transition>
                     </div>

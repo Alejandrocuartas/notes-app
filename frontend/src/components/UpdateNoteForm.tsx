@@ -7,7 +7,7 @@ import Tag from './Tag';
 import { deleteNoteRequest } from '../requests/delete_note';
 import Loading from './Loading';
 
-const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallback?: () => void, onClose: () => void }) => {
+const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallback: (setLoading: boolean) => void, onClose: () => void }) => {
     const [notes, setNotes] = useState(note.notes);
     const [isArchived, setIsArchived] = useState(note.is_archived);
     const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallb
             setLoading(true);
             await updateNoteRequest(note.id, notes, e.target.checked);
             setLoading(false);
-            refreshCallback ? refreshCallback() : null;
+            refreshCallback ? refreshCallback(false) : null;
         } catch (error: any) {
             setLoading(false);
             console.log(error);
@@ -31,10 +31,10 @@ const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallb
     const handleTagChange = async (tag: Tag) => {
         try {
             setLoading(true);
-            await addTagToNoteRequest(tag.id, note.id);
+            tag.id ? await addTagToNoteRequest(tag.id, note.id) : null;
             setNoteTags([...noteTags, tag]);
             setLoading(false);
-            refreshCallback ? refreshCallback() : null;
+            refreshCallback ? refreshCallback(false) : null;
         } catch (error: any) {
             setLoading(false);
             console.log(error);
@@ -48,7 +48,7 @@ const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallb
             setLoading(true);
             await updateNoteRequest(note.id, e.target.value, isArchived);
             setLoading(false);
-            refreshCallback ? refreshCallback() : null;
+            refreshCallback ? refreshCallback(false) : null;
         } catch (error: any) {
             setLoading(false);
             console.log(error);
@@ -61,7 +61,7 @@ const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallb
             setLoading(true);
             await deleteNoteRequest(note.id);
             setLoading(false);
-            refreshCallback ? refreshCallback() : null;
+            refreshCallback ? refreshCallback(false) : null;
             onClose();
         } catch (error: any) {
             setLoading(false);
@@ -110,9 +110,7 @@ const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallb
 
             </div>
 
-            {
-                tags.length > 0 ? <Select callback={handleTagChange} defaultCTA='Add a tag' tags={tags}></Select> : null
-            }
+            <Select noteId={note.id} isForANote={true} callback={handleTagChange} defaultCTA='Add a tag' tags={tags}></Select>
 
             <form className="max-w-sm mx-auto mt-2">
                 <textarea

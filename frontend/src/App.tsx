@@ -5,6 +5,7 @@ import AuthPage from "./pages/AuthPage";
 import Home from "./pages/Home"
 import RegisterPage from "./pages/RegisterPage";
 import './App.css';
+import Archive from "./pages/Archive";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
                     <Route path="/login" element={<AuthPage />} />
                     <Route path="/signup" element={<RegisterPage />} />
                     <Route path="/" element={<Home />} />
+                    <Route path="/archive" element={<Archive />} />
                 </Routes>
             </Layout>
         </BrowserRouter>
