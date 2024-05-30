@@ -76,9 +76,19 @@ export class NotesController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
     @Query('tag_id') tagId: number,
+    @Query('archived') archived: string = 'false',
   ) {
     try {
-      return await this.notesService.findAllByUser(+id, +page, +limit, +tagId);
+
+      let archivedParam = false;
+      if (archived.toLowerCase() === 'true') {
+        archivedParam = true;
+      } else if (archived.toLowerCase() === 'false') {
+        archivedParam = false;
+      }
+
+
+      return await this.notesService.findAllByUser(+id, +page, +limit, +tagId, archivedParam);
     } catch (error) {
       let status = HttpStatus.INTERNAL_SERVER_ERROR;
       if (error.message === ErrorMessages.USER_NOT_FOUND) {

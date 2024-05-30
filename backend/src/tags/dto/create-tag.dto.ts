@@ -12,7 +12,6 @@ export class CreateTagDto {
     tag: string;
 
     @IsNotEmpty()
-    @MinLength(3, { message: 'Emoji must have at least 3 characters.' })
     emoji: string;
 
     @IsNotEmpty()

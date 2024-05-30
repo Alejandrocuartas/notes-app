@@ -61,18 +61,20 @@ export class NotesService {
     return this.noteRepository.save(note);
   }
 
-  async findAllByUser(user_id: number, page: number = 1, limit: number = 10, tag_id?: number) {
+  async findAllByUser(user_id: number, page: number = 1, limit: number = 10, tag_id?: number, archived: boolean = false) {
     const user = await this.userRepository.findOne({ where: { id: user_id } });
     if (!user) {
       throw new Error(ErrorMessages.USER_NOT_FOUND);
     }
-
     const skip = (page - 1) * limit;
     const query = this.noteRepository.createQueryBuilder('note')
       .where('note.user_id = :user_id', { user_id })
+      .andWhere('note.is_archived = :archived', { archived })
+      .andWhere('note.deleted_at IS NULL')
       .skip(skip)
       .take(limit)
-      .leftJoinAndSelect('note.tags', 'tag');
+      .leftJoinAndSelect('note.tags', 'tag')
+      .orderBy('note.id', 'DESC');
 
     if (tag_id) {
       query.andWhere('tag.id = :tag_id', { tag_id });
@@ -87,6 +89,9 @@ export class NotesService {
       });
       return noteWithTags;
     }));
+
+    //order by id desc
+    notesWithTags.sort((a, b) => b.id - a.id);
 
     const res = {
       notes: notesWithTags,

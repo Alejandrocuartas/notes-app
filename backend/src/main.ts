@@ -23,7 +23,7 @@ async function bootstrap() {
   let portStr = process.env.PORT;
   let port = Number(portStr);
   if (!portStr || isNaN(port)) {
-    port = 3000;
+    port = 8001;
   }
   await app.listen(Number(port));
 }

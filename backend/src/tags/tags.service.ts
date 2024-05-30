@@ -42,7 +42,12 @@ export class TagsService {
   }
 
   async addToNote(id: number, tag_id: number) {
-    const note = await this.noteRepository.findOne({ where: { id } });
+    const note = await this.noteRepository.findOne({
+      where: { id },
+      relations: {
+        tags: true,
+      },
+    });
     if (!note) {
       throw new Error(ErrorMessages.NOTE_NOT_FOUND);
     }

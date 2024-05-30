@@ -14,7 +14,7 @@ import ErrorMessages from 'src/utilities/utilities.errors';
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const existingUser = await this.userRepository.findOne({
@@ -23,7 +23,6 @@ export class UserService {
     if (existingUser) {
       throw new Error(ErrorMessages.USERNAME_ALREADY_EXISTS);
     }
-    console.log(existingUser);
 
     const user: User = new User();
     user.name = createUserDto.name;
