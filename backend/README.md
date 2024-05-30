@@ -45,3 +45,6 @@
 
     The Server is running on a Amazon EC2 instance. I used Amazon API Gateway and Lambda to create a proxy and avoid
     security problems. The base url is: https://12463o22k0.execute-api.us-east-1.amazonaws.com/default
+
+## DB Schema
+![database schema](https://public-ale31jo.s3.amazonaws.com/notes.drawio.png)
