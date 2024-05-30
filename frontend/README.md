@@ -29,9 +29,9 @@
 
 ## Live Project
 
+The frontend app is deployed to Amazon Amplify. You can find it [here](https://main.d3cvottvjvgsjr.amplifyapp.com/).
 
-
-## Running the Project
+## Running the Project on Local
 
    ```bash
    npm run start
