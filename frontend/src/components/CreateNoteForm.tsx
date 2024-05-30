@@ -1,29 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loading from './Loading';
 import { useGlobalState } from "../context";
 import { createNoteRequest } from "../requests/create_note";
 
-const CreateNoteForm = () => {
+const CreateNoteForm = ({ onClose }: { onClose: () => void }) => {
     const [loading, setLoading] = React.useState(false)
     const globalState = useGlobalState()
+    const [notes, setNotes] = useState('');
 
 
     const handleChange = async (e: any) => {
+        setNotes(e.target.value);
+    }
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
         if (!globalState?.id) {
             return
         }
-
-        const notes = e.target.value;
         try {
             setLoading(true);
             await createNoteRequest(notes, globalState?.id);
             setLoading(false);
+            onClose();
         } catch (error: any) {
             setLoading(false);
             console.log(error);
             alert("Error creating note. Please try again.");
         }
-
     }
 
     useEffect(() => {
@@ -37,7 +41,7 @@ const CreateNoteForm = () => {
 
 
             <div className='flex justify-between mb-2 items-center'>
-                <h2 className="text-xl font-extrabold mb-4">Your Note Will Be Saved Automatically</h2>
+                <h2 className="text-xl font-extrabold mb-4">Create A Note</h2>
 
                 <div>
                     {
@@ -57,6 +61,11 @@ const CreateNoteForm = () => {
                     onChange={handleChange}
                 >
                 </textarea>
+                <div className="flex justify-center">
+                    <button onClick={handleSubmit} className="mt-2 bg-gray-300 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-fullbg-transparent text-gray-700 hover:text-white py-2 px-4 border hover:border-transparent rounded" >
+                        Create
+                    </button>
+                </div>
             </form>
         </div>
     );

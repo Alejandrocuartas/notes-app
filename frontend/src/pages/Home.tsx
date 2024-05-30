@@ -48,11 +48,21 @@ const Home = () => {
         )
     }
 
+    if (notesResponse?.notes.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="flex flex-col items-center justify-center">
+                    <h1 className="text-3xl font-bold">You have no notes</h1>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div>
             {
                 notesResponse?.notes?.length ? (
-                    <div className="flex flex-wrap gap-y-4 justify-between">
+                    <div className="flex flex-wrap gap-y-4 justify-start">
                         {
                             notesResponse?.notes.map((note) => (
                                 <Note refreshCallback={refresh} key={note.id} note={note}></Note>

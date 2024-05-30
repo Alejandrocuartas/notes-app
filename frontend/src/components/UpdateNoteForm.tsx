@@ -116,7 +116,7 @@ const NoteForm = ({ note, refreshCallback, onClose }: { note: Note, refreshCallb
                 <textarea
                     id="message"
                     rows={4}
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-orange-400 rounded-lg border-0 focus:ring-0 focus:border-0 border-b-2 border-orange-500"
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-orange-400 rounded-lg border-0 focus:ring-0 focus:border-0 border-b-2 border-orange-500 outline-none"
                     placeholder="Leave a comment..."
                     onChange={handleChange}
                     defaultValue={note.notes}

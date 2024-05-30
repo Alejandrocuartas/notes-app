@@ -57,7 +57,7 @@ const Navbar = () => {
                 </div>
             </nav>
             <Modal isOpen={modalOpen} onClose={onCloseModal}>
-                <CreateNoteForm></CreateNoteForm>
+                <CreateNoteForm onClose={onCloseModal}></CreateNoteForm>
             </Modal>
         </>
     )

@@ -33,7 +33,7 @@ const Note = ({ note, refreshCallback }: { note: Note, refreshCallback: (setLoad
                 key={note.id}
                 onClick={() => setModalOpen(true)}
                 className={`
-                    flex w-100% md:w-1/2 lg:w-1/4 flex-col 
+                    flex w-100% md:w-1/2 lg:w-1/6 flex-col 
                     items-start justify-between ml-2 mr-2 
                     mt-4 mb-4 bg-white shadow-lg rounded-lg 
                     p-4 cursor-pointer hover:bg-gray-100

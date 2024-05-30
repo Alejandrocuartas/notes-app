@@ -60,7 +60,7 @@ const Select = ({ tags, defaultCTA, callback, isForANote, noteId }: { tags: Tag[
                         {newTag.emoji}
                     </div>
                     <input defaultValue={newTag.tag} maxLength={25} type="text" placeholder="tag name" className="focus:outline-none w-full p-2 text-sm text-gray-900 bg-orange-400 rounded-lg border-0 focus:ring-0 focus:border-0 border-b-2 border-orange-500" onChange={handleCreateTagChange} />
-                    <button onClick={handleCreateTag} className="bg-gray-200 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-fullbg-transparent text-gray-700 hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" >
+                    <button onClick={handleCreateTag} className="bg-gray-200 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-fullbg-transparent text-gray-700 hover:text-white py-2 px-4 border hover:border-transparent rounded" >
                         Create
                     </button>
                 </div>

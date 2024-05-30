@@ -4,7 +4,7 @@
     "description": "",
     "main": "./src/index.tsx",
     "scripts": {
-        "start": "webpack serve --env API=http://localhost:8001 --mode development --env development",
+        "start": "webpack serve --env API=http://34.229.16.6:8001 --mode development --env development",
         "build": "webpack --env API=http://34.229.16.6:8001 --mode production"
     },
     "keywords": [],
