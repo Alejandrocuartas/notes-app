@@ -33,15 +33,15 @@
     DB_PASSWORD=  
     DB_NAME=
 
+## Running the Project
+
+    npm run start:dev
+
 ## API Documentation
 
-For detailed API documentation, visit the following [Postman Collection](https://www.postman.com/orbital-module-geoscientist-50527574/workspace/notes-app/collection/15967321-10354404-754d-43c8-ae07-ed4d84bda86e?action=share&creator=15967321)
+   For detailed API documentation, visit the following [Postman Collection](https://www.postman.com/orbital-module-geoscientist-50527574/workspace/notes-app/collection/15967321-10354404-754d-43c8-ae07-ed4d84bda86e?action=share&creator=15967321)
 
 ## Deploy
 
-The App is running on a Amazon EC2 instance and the base url is: https://12463o22k0.execute-api.us-east-1.amazonaws.com/default
-
-## Running the Project
-
-   ```bash
-   npm run start:dev
+    The Server is running on a Amazon EC2 instance. I used Amazon API Gateway and Lambda to create a proxy and avoid
+    security problems. The base url is: https://12463o22k0.execute-api.us-east-1.amazonaws.com/default
