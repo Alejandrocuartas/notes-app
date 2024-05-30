@@ -4,8 +4,8 @@
     "description": "",
     "main": "./src/index.tsx",
     "scripts": {
-        "start": "webpack serve --env API=http://34.229.16.6:8001 --mode development --env development",
-        "build": "webpack --env API=http://34.229.16.6:8001 --mode production"
+        "start": "webpack serve --env API=https://12463o22k0.execute-api.us-east-1.amazonaws.com/default --mode development --env development",
+        "build": "webpack --env API=https://12463o22k0.execute-api.us-east-1.amazonaws.com/default --mode production"
     },
     "keywords": [],
     "author": "Alejandro Cuartas <cuartasmarin734@gmail.com>",

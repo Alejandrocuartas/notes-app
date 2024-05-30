@@ -39,7 +39,7 @@ For detailed API documentation, visit the following [Postman Collection](https:/
 
 ## Deploy
 
-The App is running on a Amazon EC2 instance and the base url is: http://34.229.16.6:8001
+The App is running on a Amazon EC2 instance and the base url is: https://12463o22k0.execute-api.us-east-1.amazonaws.com/default
 
 ## Running the Project
 
